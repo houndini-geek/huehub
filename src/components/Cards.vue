@@ -49,6 +49,15 @@ export default {
           alert(error)
         }
       }
+
+      const scrollTop = () => {
+        window.scrollTo({
+          top:0,
+          behavior: 'smooth'
+        })
+      }
+
+      scrollTop()
     return {
       copyHex
 
