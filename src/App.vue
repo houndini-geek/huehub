@@ -1,5 +1,6 @@
 <template>
   
+  <Header/>
 
 <nav>
   <RouterLink :to="{name : 'themes', params:{ themes:'light'}}">
@@ -24,9 +25,11 @@
 </template>
 
 <script>
+import Header from './components/Header.vue';
 import { RouterLink, RouterView } from 'vue-router';
 export default {
 
+  components: { Header }
 
 
 }
@@ -36,16 +39,17 @@ export default {
 
 nav {
     position: fixed;
-    left: 0;
-    top: 50%;
-    width:fit-content;
-    transform: translateY(-50%); 
-    border: 1px solid rgba(38, 38, 38,.4);
+    left: 50%;
+    bottom: 0;
+    width:min(100%,1300px);
+    transform: translateX(-50%); 
+    background-color: rgba(3, 3, 3,.4);
+    backdrop-filter:blur(10px);
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: .3em;
-    gap: .7em;
+    gap: 3em;
     z-index: 5;
 }
 
@@ -60,7 +64,6 @@ nav a {
   text-transform: capitalize;
   padding: .4em;
   gap: .7em;
-  margin: .4em 0;
   border-radius: .4em;
   background-color: var(--vt-c-indigo);
 }

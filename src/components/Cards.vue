@@ -9,7 +9,7 @@
         <div class="right-side">
           <h4>{{color.name}}</h4>
           <span>#{{color.hex}}</span>
-          <button title="Copy HEX">
+          <button title="Copy HEX" type="button" @click="copyHex(color.hex)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="15"
@@ -36,7 +36,24 @@
 
 export default {
 
-  props: ['colors', 'error']
+  props: ['colors', 'error'],
+
+  setup(){
+
+      const copyHex = (hex) => {
+
+        try {
+          navigator.clipboard.writeText(hex);
+          alert(`${hex}: copied to clipboard`)
+        } catch (error) {
+          alert(error)
+        }
+      }
+    return {
+      copyHex
+
+    }
+  }
 }
 
 </script>
@@ -47,7 +64,7 @@ export default {
 
 
 .cards {
-    grid-column: 2 / 13;
+    grid-column: 1 / 13;
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
@@ -77,7 +94,7 @@ export default {
     border: 1px solid rgba(100, 100, 100, 0.4);
     height: 100%;
     width: 40%;
-   border-radius: .4em;
+    border-radius: 83% 17% 89% 11% / 11% 91% 9% 89% ;
    cursor: pointer;
    transition: transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -117,6 +134,8 @@ padding: .3em;
 .cards .card .right-side span{
 
     text-transform: capitalize;
+    font-size: 0.8em;
+    font-weight: 600;
     width: 100%;
     display: inline-block;
     color: #e7e6e6;
@@ -128,6 +147,7 @@ right: 0;
 bottom: 0;
 background-color: transparent;
 border: none;
+z-index: 1;
 }
 
 .cards .card .right-side button svg{

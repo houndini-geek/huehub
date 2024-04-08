@@ -14,11 +14,12 @@ import Cards from '../components/Cards.vue'
 export default {
   components: { Cards },
     setup() {
-        const { colors, error, load } = getColors();
-        load(); 
+      const { colors, error, load } = getColors();
+      load('');
         return {
           colors,
-          error
+          error,
+      
         };
     }
 }

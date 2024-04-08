@@ -3,26 +3,33 @@ import { ref } from 'vue';
 const getColors = () => {
     const colors = ref([]);
     const error = ref('');
-    
-    const load = async (color) => {
+    const load = async (query) => {
         try {
-            if (color) {
-                const Groupsdata = await fetch(`https://color-serve.onrender.com/api/groups/${color}`);
-                const Groupsresults = await Groupsdata.json();
-        
-                colors.value = Groupsresults.data || [];
-            } else {
-                const data = await fetch('https://color-serve.onrender.com/api/colors/');
-                const results = await data.json();
-        
-                colors.value = results.data || [];
+            let apiUrl = '';
+    
+            switch (query) {
+                case '':
+                    apiUrl = 'https://color-serve.onrender.com/api/colors/';
+                    break;
+                case 'light':
+                    apiUrl = 'https://color-serve.onrender.com/api/themes/light';
+                    break;
+                case 'dark':
+                    apiUrl = 'https://color-serve.onrender.com/api/themes/dark';
+                    break;
+                default:
+                    apiUrl = `https://color-serve.onrender.com/api/groups/${query}`;
             }
+            
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            colors.value = data.data || [];
         } catch (error) {
             error.value = error.message;
             console.log(error);
         }
     };
-
+    
     return { colors, error, load };
 };
 

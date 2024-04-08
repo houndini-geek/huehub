@@ -1,18 +1,23 @@
 <template>
-  displaying themes {{ themes }}
+ <Header :mssg="themes + ' ' + 'themes'"/>
+ <Cards :colors="colors" :error="error"/>
 </template>
 
 <script>
 
-import getLightThemes from '../composables/getLightThemes'
+import Header from '../components/Header.vue';
+import getColors from '../composables/getColors';
+import Cards from '../components/Cards.vue';
 
 export default {
   props: ['themes'],
-  setup() {
-
+  components: { Header, Cards },
+  setup(themes) {
+    const { colors, error, load } = getColors();
+        load(themes.themes); 
     return {
-
-
+        colors,
+          error
     }
   }
 
